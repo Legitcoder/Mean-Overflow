@@ -26,7 +26,10 @@ export class PostComponent {
     }
 
     onDelete(){
-        this.postService.deletePost(this.post);
+        this.postService.deletePost(this.post).subscribe(
+            result => console.log(result),
+            error => console.log(error)
+        )
     }
 
 }

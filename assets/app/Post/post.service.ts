@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map'
 export class PostService{
     private posts: Post[] = [];
     postIsEdit = new EventEmitter<Post>();
+    private post: Post;
 
     constructor(private http: Http){}
 
@@ -24,6 +25,15 @@ export class PostService{
             })
             .catch((error: Response) => Observable.throw(error.json()));
 
+    }
+
+    getPost(postId){
+        return this.http.get('http://localhost:3000/post/' + postId)
+            .map((response: Response) =>{
+                this.post = response.json().obj;
+                return this.post;
+            })
+            .catch((error: Response) => Observable.throw(error.json().obj));
     }
 
 

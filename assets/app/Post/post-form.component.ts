@@ -23,7 +23,8 @@ export class PostFormComponent implements OnInit{
             this.post.title = form.value.title;
             this.post.content = form.value.content;
             this.postService.updatePost(this.post).subscribe(
-                (result) => console.log(result)
+                (result) => console.log(result),
+                (error) => console.log(error)
             )
             this.post = null;
         }

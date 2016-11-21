@@ -1,7 +1,5 @@
 <ul>
 <li>
-    <h2>{{post.title}}</h2>
-    <a (click)="onEdit()">Edit</a>
-    <a (click)="onDelete()">Delete</a>
+   <a [routerLink]="[post.postId]"><h3>{{post.title}}</h3></a>
 </li>
 </ul>

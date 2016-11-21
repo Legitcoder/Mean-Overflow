@@ -20,6 +20,29 @@ router.get('/', function(req, res, next){
         });
 });
 
+//Get Individual Post
+router.get('/:id', function(req, res, next){
+    console.log(req.params.id);
+    Post.findById(req.params.id, function(error, post){
+        if(error){
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: error
+            });
+        }
+        if(!post){
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'No post found'}
+            });
+        }
+            res.status(201).json({
+                message: 'Found Post',
+                obj: post
+            });
+    })
+});
+
 //Add Post
 router.post('/', function(req, res, next){
    var post = new Post({
