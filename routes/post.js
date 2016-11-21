@@ -20,10 +20,6 @@ router.get('/', function(req, res, next){
         });
 });
 
-
-
-
-
 //Add Post
 router.post('/', function(req, res, next){
    var post = new Post({
@@ -39,11 +35,75 @@ router.post('/', function(req, res, next){
             });
         }
         res.status(201).json({
-           message: 'Saved message',
+           message: 'Saved Post',
             obj: result
         });
     });
 
+});
+
+//Update Post
+router.patch('/:id', function(req, res, next){
+    Post.findById(req.params.id, function(error, post){
+        if(error){
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: error
+            });
+        }
+        if(!post){
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'No post found'}
+            });
+        }
+        post.title = req.body.title;
+        post.content = req.body.content;
+        post.save(function(error, result){
+            if(error){
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: error
+                });
+            }
+            res.status(201).json({
+                message: 'Updated Post',
+                obj: result
+            });
+        });
+    })
+});
+
+
+//Delete Post
+router.delete('/:id', function(req, res, next){
+    Post.findById(req.params.id, function(error, post){
+        if(error){
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: error
+            });
+        }
+        if(!post){
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'No post found'}
+            });
+        }
+
+        post.remove(function(error, result){
+            if(error){
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: error
+                });
+            }
+            res.status(201).json({
+                message: 'Deleted Post',
+                obj: result
+            });
+        });
+    })
 });
 
 module.exports = router;

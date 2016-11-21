@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Post} from "./post.model";
+import {PostService} from "./post.service";
 
 
 @Component({
@@ -15,5 +16,17 @@ import {Post} from "./post.model";
 
 export class PostComponent {
     @Input() post: Post;
+
+    constructor(private postService: PostService){
+
+    }
+
+    onEdit(){
+        this.postService.editPost(this.post);
+    }
+
+    onDelete(){
+        this.postService.deletePost(this.post);
+    }
 
 }
