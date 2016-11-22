@@ -20,6 +20,7 @@ export class PostFormComponent implements OnInit{
 
     onSubmit(form: NgForm){
         if(this.post){
+            console.log(this.post);
             this.post.title = form.value.title;
             this.post.content = form.value.content;
             this.postService.updatePost(this.post).subscribe(
@@ -35,6 +36,10 @@ export class PostFormComponent implements OnInit{
             error => console.log(error)
         );}
         this.onClear(form);
+    }
+
+    onEdit(){
+        this.postService.editPost(this.post);
     }
 
 

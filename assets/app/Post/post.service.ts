@@ -30,7 +30,9 @@ export class PostService{
     getPost(postId){
         return this.http.get('http://localhost:3000/post/' + postId)
             .map((response: Response) =>{
-                this.post = response.json().obj;
+                const post = new Post(response.json().obj.title, response.json().obj.content, response.json().obj._id );
+                console.log(post);
+                this.post = post;
                 return this.post;
             })
             .catch((error: Response) => Observable.throw(error.json().obj));
@@ -38,6 +40,7 @@ export class PostService{
 
 
     getPosts(){
+        this.posts = [];
         return this.http.get('http://localhost:3000/post')
             .map((response: Response) =>{
                 response.json().obj.forEach((post) =>
@@ -50,6 +53,7 @@ export class PostService{
     updatePost(post: Post){
         const headers = new Headers({'Content-Type': 'application/json'});
         const body = JSON.stringify(post);
+        console.log(post);
         return this.http.patch('http://localhost:3000/post/' + post.postId , body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
@@ -60,6 +64,7 @@ export class PostService{
     }
 
     deletePost(post: Post){
+        console.log(post);
         this.posts.splice(this.posts.indexOf(post), 1);
         return this.http.delete('http://localhost:3000/post/' + post.postId)
             .map((response: Response) => response.json())

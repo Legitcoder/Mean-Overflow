@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy, OnChanges} from '@angular/core';
 import {PostService} from "./post.service";
 import {Post} from "./post.model";
 @Component({
@@ -13,9 +13,11 @@ export class PostsComponent implements OnInit {
     }
 
     ngOnInit(){
+        console.log(this.posts);
         this.postService.getPosts().subscribe(
             (posts: Post[]) => {
                 this.posts = posts;
+                console.log(posts);
             }
         )
     }

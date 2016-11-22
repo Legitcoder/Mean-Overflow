@@ -68,6 +68,7 @@ router.post('/', function(req, res, next){
 //Update Post
 router.patch('/:id', function(req, res, next){
     Post.findById(req.params.id, function(error, post){
+        console.log(req.params.id);
         if(error){
             return res.status(500).json({
                 title: 'An error occurred',

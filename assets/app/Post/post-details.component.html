@@ -1,6 +1,5 @@
-<mean-post-form></mean-post-form>
-
+<mean-post-form *ngIf="toggleForm"></mean-post-form>
 <h1>{{selectedPost?.title}}</h1>
 <p>{{selectedPost?.content}}</p>
-<a (click)="onEdit()">Edit</a>
-<a (click)="onDelete()">Delete</a>
+<a (click)="onEdit() [toggleForm]=!toggleForm"  class="btn btn-primary">Edit</a>
+<a (click)="onDelete()" class="btn btn-danger">Delete</a>
