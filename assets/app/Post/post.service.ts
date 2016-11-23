@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map'
 export class PostService{
     private posts: Post[] = [];
     postIsEdit = new EventEmitter<Post>();
+    postIsAppend = new EventEmitter<Boolean>();
     private post: Post;
 
     constructor(private http: Http){}
@@ -57,6 +58,10 @@ export class PostService{
         return this.http.patch('http://localhost:3000/post/' + post.postId , body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
+    }
+
+    appendPost(toggle: boolean){
+        this.postIsAppend.emit(toggle);
     }
 
     editPost(post: Post){

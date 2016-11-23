@@ -1,5 +1,11 @@
-<mean-post-form *ngIf="toggleForm"></mean-post-form>
+<div [hidden]="!toggleDetails">
+<mean-post-form></mean-post-form>
+</div>
+
+
+<div [hidden]="toggleDetails">
 <h1>{{selectedPost?.title}}</h1>
 <p>{{selectedPost?.content}}</p>
-<a (click)="onEdit() [toggleForm]=!toggleForm"  class="btn btn-primary">Edit</a>
-<a (click)="onDelete()" class="btn btn-danger">Delete</a>
+<a *ngIf="selectedPost" (click)="onEdit(); toggleDetails=!toggleDetails" class="btn btn-primary">Edit</a>
+<a *ngIf="selectedPost" (click)="onDelete()" class="btn btn-danger">Delete</a>
+</div>

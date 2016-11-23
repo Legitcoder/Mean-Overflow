@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, AfterContentInit, OnInit} from '@angular/core';
 import {Post} from "./post.model";
 import {PostService} from "./post.service";
 
@@ -14,22 +14,10 @@ import {PostService} from "./post.service";
 })
 
 
-export class PostComponent {
+export class PostComponent{
     @Input() post: Post;
 
     constructor(private postService: PostService){
-
-    }
-
-    onEdit(){
-        this.postService.editPost(this.post);
-    }
-
-    onDelete(){
-        this.postService.deletePost(this.post).subscribe(
-            result => console.log(result),
-            error => console.log(error)
-        )
     }
 
 }

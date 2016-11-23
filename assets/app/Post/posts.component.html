@@ -1,4 +1,10 @@
-<br>
-<button type="button" class="btn btn-primary btn-lg" (click)="toggleForm=!toggleForm" >Create Post</button>
-<mean-post-form *ngIf="toggleForm" ></mean-post-form>
-<mean-post *ngFor="let post of posts" [post]="post" ></mean-post>
+<div class="row">
+
+<div class="col-lg-6" >
+    <mean-post-form></mean-post-form>
+</div>
+
+<div class="col-lg-6 center-block">
+    <mean-post *ngFor="let post of posts" [post]="post" ></mean-post>
+</div>
+</div>

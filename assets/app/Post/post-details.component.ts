@@ -13,6 +13,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private postId: Post;
     private selectedPost;
+    private toggleForm: boolean = false;
+    private toggleDetails: boolean = false;
 
     constructor(private postService: PostService, private route: ActivatedRoute, private router: Router){
 
@@ -29,12 +31,18 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
                 );
             }
         );
+        this.postService.postIsAppend.subscribe(
+            (bool: boolean) => {
+                this.toggleDetails = bool;
+            }
+        )
     }
 
 
 
     onEdit(){
-        console.log(this.selectedPost);
+        console.log("this");
+
         this.postService.editPost(this.selectedPost);
     }
 

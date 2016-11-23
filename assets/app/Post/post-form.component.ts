@@ -1,24 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterContentChecked, AfterViewChecked} from '@angular/core';
 import {Post} from "./post.model";
 import {NgForm} from "@angular/forms";
 import {PostService} from "./post.service";
+import {Router} from "@angular/router";
 
 
 @Component({
     selector: 'mean-post-form',
-    templateUrl: './post-form.component.html'
+    templateUrl: './post-form.component.html',
+    inputs: ['post']
 })
-export class PostFormComponent implements OnInit{
+export class PostFormComponent implements OnInit, AfterViewChecked{
     toggleForm: boolean = false;
     post: Post;
 
-    constructor(private postService: PostService){}
+    constructor(private postService: PostService, private router: Router){}
 
-    clickToggleForm(){
-        this.toggleForm = !this.toggleForm;
-    }
 
     onSubmit(form: NgForm){
+        this.postService.appendPost(false);
         if(this.post){
             console.log(this.post);
             this.post.title = form.value.title;
@@ -38,22 +38,28 @@ export class PostFormComponent implements OnInit{
         this.onClear(form);
     }
 
-    onEdit(){
-        this.postService.editPost(this.post);
-    }
 
+    ngAfterViewChecked(){
+        this.postService.postIsEdit.subscribe(
+            (post: Post) => {
+                this.post = post;
+                console.log(post);
+            }
+        )
+    }
 
     ngOnInit(){
         this.postService.postIsEdit.subscribe(
             (post: Post) => {
                 this.post = post;
+                console.log(post);
             }
         )
     }
 
 
     onClear(form: NgForm){
-        this.post = null;
+
         form.resetForm();
     }
 
