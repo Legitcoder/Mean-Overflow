@@ -13,6 +13,10 @@ import {HttpModule} from "@angular/http";
 import {PostDetailsComponent} from "./Post/post-details.component";
 import {LoginFormComponent} from "./User/login-form.component";
 import {SignupFormComponent} from "./User/signup-form.component";
+import {CommentsComponent} from "./Comment/comments.component";
+import {CommentFormComponent} from "./Comment/comment-form.component";
+import {CommentComponent} from "./Comment/comment.component";
+import {CommentService} from "./Comment/comment.service";
 
 
 @NgModule({
@@ -24,10 +28,13 @@ import {SignupFormComponent} from "./User/signup-form.component";
         PostFormComponent,
         PostDetailsComponent,
         LoginFormComponent,
-        SignupFormComponent],
+        SignupFormComponent,
+        CommentsComponent,
+        CommentFormComponent,
+        CommentComponent],
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, routing, HttpModule],
     bootstrap: [AppComponent],
-    providers: [PostService]
+    providers: [PostService, CommentService]
 })
 
 export class AppModule {

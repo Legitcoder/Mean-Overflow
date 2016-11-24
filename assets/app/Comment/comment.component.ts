@@ -4,17 +4,13 @@ import {Comment} from "./comment.model";
 
 @Component({
     selector: 'mean-comment',
-    templateUrl: './comment.component.html',
-    styles: [
-        `ul{
-            list-style: none;
-        }`
-    ]
+    templateUrl: './comment.component.html'
 })
 
 
-export class PostComponent{
+export class CommentComponent{
     @Input() comment: Comment;
+    private toggleDetails: boolean = false;
 
     constructor(){
     }

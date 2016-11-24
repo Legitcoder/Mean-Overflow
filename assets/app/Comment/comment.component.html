@@ -1,0 +1,9 @@
+<div [hidden]="!toggleDetails">
+    <mean-comment-form></mean-comment-form>
+</div>
+
+<div [hidden]="toggleDetails">
+    <p>{{comment?.content}}</p>
+    <a *ngIf="comment" (click)="onEdit(); toggleDetails=!toggleDetails" class="btn btn-primary">Edit</a>
+    <a *ngIf="comment" (click)="onDelete()" class="btn btn-danger">Delete</a>
+</div>

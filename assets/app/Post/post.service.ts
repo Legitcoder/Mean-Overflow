@@ -21,6 +21,7 @@ export class PostService{
         return this.http.post('http://localhost:3000/post', body, {headers: headers})
             .map((response: Response) =>{
                 const result = response.json().obj;
+                console.log(result);
                 const post = new Post(result.title, result.content, result._id, 'User Id');
                 this.posts.push(post);
             })

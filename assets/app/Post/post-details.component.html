@@ -8,4 +8,5 @@
 <p>{{selectedPost?.content}}</p>
 <a *ngIf="selectedPost" (click)="onEdit(); toggleDetails=!toggleDetails" class="btn btn-primary">Edit</a>
 <a *ngIf="selectedPost" (click)="onDelete()" class="btn btn-danger">Delete</a>
+    <mean-comments></mean-comments>
 </div>
