@@ -15,12 +15,10 @@ export class CommentsComponent implements OnInit{
     private subscription: Subscription;
     private comments: Comment[];
     private postId;
+    private toggleForm: boolean = false;
 
 
     constructor(private commentService: CommentService, private route: ActivatedRoute){}
-
-
-
 
     ngOnInit(){
         this.getPostId();
@@ -29,6 +27,12 @@ export class CommentsComponent implements OnInit{
             (comments: Comment[]) => {
                 this.comments = comments;
                 console.log(comments);
+            }
+        );
+
+        this.commentService.commentIsMount.subscribe(
+            (status: boolean) => {
+                this.toggleForm = false;
             }
         );
     }

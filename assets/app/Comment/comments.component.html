@@ -1,3 +1,9 @@
+<br>
+<div>
+<button type="button" class="btn btn-primary btn-sm" (click)="toggleForm=!toggleForm">Add Comment</button>
+<mean-comment-form *ngIf="toggleForm"></mean-comment-form>
+</div>
+<br>
 
-<mean-comment-form></mean-comment-form>
+
 <mean-comment *ngFor="let comment of comments" [comment]="comment" ></mean-comment>

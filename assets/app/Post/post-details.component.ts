@@ -41,8 +41,6 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
 
 
     onEdit(){
-        console.log("this");
-
         this.postService.editPost(this.selectedPost);
     }
 

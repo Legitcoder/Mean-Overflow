@@ -1,9 +1,14 @@
-<div [hidden]="!toggleDetails">
+<div [hidden]="showComment">
     <mean-comment-form></mean-comment-form>
 </div>
 
-<div [hidden]="toggleDetails">
+<ul>
+    <li>
+
+<div [hidden]="showComment==false">
     <p>{{comment?.content}}</p>
-    <a *ngIf="comment" (click)="onEdit(); toggleDetails=!toggleDetails" class="btn btn-primary">Edit</a>
-    <a *ngIf="comment" (click)="onDelete()" class="btn btn-danger">Delete</a>
+    <a *ngIf="comment" (click)="onEdit(); showComment=!showComment" class="btn btn-primary btn-xs">Edit</a>
+    <a *ngIf="comment" (click)="onDelete()" class="btn btn-danger btn-xs">Delete</a>
 </div>
+    </li>
+</ul>

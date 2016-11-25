@@ -9,7 +9,7 @@ import {Post} from "./post.model";
 })
 export class PostsComponent implements OnInit {
     private posts: Post[] = [];
-    showList: boolean = true;
+    togglePostForm: boolean = false;
 
     constructor(private postService: PostService){
 
@@ -32,6 +32,12 @@ export class PostsComponent implements OnInit {
                 }
             }
         )
+
+        this.postService.postIsAppend.subscribe(
+            (status: boolean) => {
+                this.togglePostForm = !this.togglePostForm;
+            }
+        );
     }
 
 

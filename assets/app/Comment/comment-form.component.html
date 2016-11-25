@@ -1,8 +1,11 @@
-<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+<div [hidden]="toggleForm">
+<form (ngSubmit)="onSubmit(f); toggleForm==false" #f="ngForm">
     <div class="form-group">
         <textarea class="form-control"  name="content" [ngModel]="comment?.content" placeholder="Body" rows="3" required></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="button" class="btn btn-danger" (click)="onClear(f)">Clear</button>
+    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+    <button type="button" class="btn btn-danger btn-sm" (click)="onClear(f)">Clear</button>
 </form>
+</div>

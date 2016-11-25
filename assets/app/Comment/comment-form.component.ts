@@ -4,6 +4,7 @@ import {NgForm} from "@angular/forms";
 import {Router, ActivatedRoute} from "@angular/router";
 import {CommentService} from "./comment.service";
 import {Subscription} from "rxjs";
+import {Response} from "@angular/http";
 
 
 @Component({
@@ -14,15 +15,23 @@ export class CommentFormComponent implements OnInit{
     private subscription: Subscription;
     private comment: Comment;
     private postId;
+    private toggleForm: boolean = false;
 
     constructor(private commentService: CommentService, private route: ActivatedRoute){}
 
     onSubmit(form: NgForm){
+        console.log(this.toggleForm);
         this.getPostId();
         if(this.comment){
-
+            this.commentService.mountComment(true);
+            this.comment.content = form.value.content;
+            this.commentService.updateComment(this.comment).subscribe(
+                (results) => console.log(results),
+                (error) => console.log(error)
+            );
         }
         else{
+            this.commentService.mountComment(true);
             const comment = new Comment(form.value.content, this.postId);
             console.log(comment);
             this.commentService.addComment(comment).subscribe(
@@ -30,11 +39,23 @@ export class CommentFormComponent implements OnInit{
                 error => console.log(error)
             );
         }
+        this.onClear(form);
+    }
+
+    onClear(form: NgForm){
+        form.resetForm();
     }
 
 
 
     ngOnInit(){
+        this.commentService.commentIsEdit.subscribe(
+            (comment: Comment) => {
+                console.log(comment);
+                this.comment = comment;
+            }
+        );
+
     }
 
     getPostId(){
