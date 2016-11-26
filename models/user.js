@@ -5,8 +5,8 @@ var schema = new Schema({
     userName: {type: String, require: true},
     email: {type: String, require: true},
     password: {type: String, require: true},
-    content: {type: String, require: true},
-    posts: [{type: Schema.Types.ObjectId, ref: 'Post'}]
+    posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
 });
 
 module.exports = mongoose.model('User', schema);

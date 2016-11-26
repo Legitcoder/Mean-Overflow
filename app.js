@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/post', postRoutes);
-//app.use('/user', userRoutes);
+app.use('/user', userRoutes);
 app.use('/comment', commentRoutes);
 app.use('/', appRoutes);
 

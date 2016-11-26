@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('../models/post')
+var Post = require('../models/post');
+var User = require('../models/user');
+var jwt = require("jsonwebtoken");
 
 
 //Get Post
@@ -19,6 +21,7 @@ router.get('/', function(req, res, next){
             });
         });
 });
+
 
 //Get Individual Post
 router.get('/:id', function(req, res, next){
@@ -43,25 +46,50 @@ router.get('/:id', function(req, res, next){
     })
 });
 
-//Add Post
-router.post('/', function(req, res, next){
-   var post = new Post({
-       title: req.body.title,
-       content: req.body.content
-   });
-    console.log(post);
-    post.save(function(error, result){
-        if(error){
-            return res.status(500).json({
-               title: 'An error occurred',
-                error: error
+router.use('/', function(req, res, next){
+    jwt.verify(req.query.token, 'secret', function(err, decoded){
+        if(err){
+            return res.status(401).json({
+                title: 'Not Authenticated',
+                error: err
             });
         }
-        res.status(201).json({
-           message: 'Saved Post',
-            obj: result
+        next();
+    });
+});
+
+//Add Post
+router.post('/', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, function(error, user){
+        console.log(user);
+       if(error){
+           return res.status(500).json({
+               title: 'An error occurred',
+               error: error
+           });
+       }
+        var post = new Post({
+            title: req.body.title,
+            content: req.body.content,
+            user: user
+        });
+        post.save(function(error, result){
+            if(error){
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: error
+                });
+            }
+            user.posts.push(result);
+            user.save();
+            res.status(201).json({
+                message: 'Saved Post',
+                obj: result
+            });
         });
     });
+
 
 });
 

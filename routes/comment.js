@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Comment = require("../models/comment");
 var Post = require("../models/post");
+var jwt = require("jsonwebtoken");
 
 
 
@@ -33,28 +34,49 @@ router.get('/:id', function(req, res, next){
 });
 
 
+router.use('/', function(req, res, next){
+    jwt.verify(req.query.token, 'secret', function(err, decoded){
+        if(err){
+            return res.status(401).json({
+                title: 'Not Authenticated',
+                error: err
+            });
+        }
+        next();
+    });
+});
+
 
 
 //Add Comment
 router.post('/', function(req, res, next){
-
-    var comment = new Comment({
-       content: req.body.content,
-        post: req.body.postId
-    });
-
-    comment.save(function(error, result){
+    Post.findById(req.body.postId, function(error, post){
         if(error){
             return res.status(500).json({
                 title: 'An error occurred',
                 error: error
             });
         }
-        res.status(201).json({
-            message: 'Saved Comment',
-            obj: result
+        var comment = new Comment({
+            content: req.body.content,
+            post: req.body.postId
+        });
+        post.push(comment);
+        post.save();
+        comment.save(function(error, result){
+            if(error){
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: error
+                });
+            }
+            res.status(201).json({
+                message: 'Saved Comment',
+                obj: result
+            });
         });
     });
+
 
 });
 

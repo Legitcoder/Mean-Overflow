@@ -17,8 +17,9 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li routerLinkActive="active" ><a [routerLink]="['/login']">Login</a></li>
-                <li routerLinkActive="active" ><a [routerLink]="['/signup']" >SignUp</a></li>
+                <li routerLinkActive="active" *ngIf="!loggedIn()" ><a [routerLink]="['/login']">Login</a></li>
+                <li routerLinkActive="active" *ngIf="!loggedIn()" ><a [routerLink]="['/signup']" >SignUp</a></li>
+                <li *ngIf="loggedIn()"><a (click)="onLogout()"  [routerLink]="['/']">LogOut</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

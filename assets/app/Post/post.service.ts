@@ -18,12 +18,14 @@ export class PostService{
     addPost(post){
         const headers = new Headers({'Content-Type': 'application/json'});
         const body = JSON.stringify(post);
-        return this.http.post('http://localhost:3000/post', body, {headers: headers})
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this.http.post('http://localhost:3000/post' + token, body, {headers: headers})
             .map((response: Response) =>{
                 const result = response.json().obj;
                 console.log(result);
                 const post = new Post(result.title, result.content, result._id, 'User Id');
                 this.posts.push(post);
+                return post;
             })
             .catch((error: Response) => Observable.throw(error.json()));
 
@@ -55,8 +57,8 @@ export class PostService{
     updatePost(post: Post){
         const headers = new Headers({'Content-Type': 'application/json'});
         const body = JSON.stringify(post);
-        console.log(post);
-        return this.http.patch('http://localhost:3000/post/' + post.postId , body, {headers: headers})
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this.http.patch('http://localhost:3000/post/' + post.postId + token , body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -72,7 +74,8 @@ export class PostService{
     deletePost(post: Post){
         console.log(post);
         this.posts.splice(this.posts.indexOf(post), 1);
-        return this.http.delete('http://localhost:3000/post/' + post.postId)
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this.http.delete('http://localhost:3000/post/' + post.postId + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }

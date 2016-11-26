@@ -1,22 +1,14 @@
 <div class="col-md-4 col-md-offset-4">
     <h1 class="text-center" >Create an Account</h1>
-<form class="form-horizontal" >
+<form class="form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+
     <fieldset>
 
-        <div id="new-parent-name-input" class="control-group">
-            <!-- name -->
-
-            <div id="name-input" class="controls">
-                <input type="text" id="name" name="name" placeholder="Name" class=" form-control input-xlarge"  autofocus =""  required>
-
-            </div>
-        </div>
         <div id="new-parent-username-input" class="control-group">
             <!-- Username -->
 
             <div class="controls">
-                <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge form-control " autofocus ="" required>
-
+                <input type="text" id="username" placeholder="Username" class="input-xlarge form-control" formControlName="username" autofocus ="" required>
             </div>
         </div>
 
@@ -26,16 +18,16 @@
             <!-- Email -->
 
             <div class="controls">
-                <input type="text" id="email" name="email" placeholder="Email" class="input-xlarge form-control "  autofocus ="" required>
-
+                <input type="text" id="email" placeholder="Email" class="input-xlarge form-control" formControlName="email"  autofocus ="" required>
             </div>
         </div>
+
 
         <div id="new-parent-password-input" class="control-group">
             <!-- Password-->
 
             <div class="controls">
-                <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge form-control "  autofocus ="" required>
+                <input type="password" id="password" placeholder="Password" class="input-xlarge form-control" formControlName="password"  autofocus ="" required>
             </div>
         </div>
 
@@ -43,7 +35,7 @@
         <div id="new-parent-submit" class="control-group">
             <!-- Button -->
             <div class="controls">
-                <button id="home-button" class="btn btn-lg btn-primary btn-block"><span class="home-text">Register</span></button>
+                <button [disabled]="!myForm.valid" id="home-button" class="btn btn-lg btn-primary btn-block"><span class="home-text">Register</span></button>
             </div>
         </div>
     </fieldset>

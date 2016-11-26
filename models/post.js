@@ -8,4 +8,13 @@ var schema = new Schema({
     user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
+
+
+schema.post('remove', function(post){
+    User.findById(post.user, function(err, user){
+        user.posts.pull(post);
+        user.save();
+    });
+});
+
 module.exports = mongoose.model('Post', schema);
