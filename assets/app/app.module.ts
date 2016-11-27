@@ -17,7 +17,7 @@ import {CommentsComponent} from "./Comment/comments.component";
 import {CommentFormComponent} from "./Comment/comment-form.component";
 import {CommentComponent} from "./Comment/comment.component";
 import {CommentService} from "./Comment/comment.service";
-import {UserService} from "./User/user.service.";
+import {UserService} from "./User/user.service";
 
 
 @NgModule({

@@ -8,6 +8,7 @@ var jwt = require("jsonwebtoken");
 //Get Post
 router.get('/', function(req, res, next){
     Post.find()
+        .populate('user', 'username')
         .exec(function(error, posts){
             if(error){
                 return res.status(500).json({
@@ -23,9 +24,7 @@ router.get('/', function(req, res, next){
 });
 
 
-//Get Individual Post
 router.get('/:id', function(req, res, next){
-    console.log(req.params.id);
     Post.findById(req.params.id, function(error, post){
         if(error){
             return res.status(500).json({
@@ -39,12 +38,49 @@ router.get('/:id', function(req, res, next){
                 error: {message: 'No post found'}
             });
         }
+        Post.findOne(post).populate('user').exec(function(error, post){
+            if(error){
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: error
+                });
+            }
+            if(!post){
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: {message: 'No post found'}
+                });
+            }
             res.status(201).json({
                 message: 'Found Post',
                 obj: post
             });
+        })
     })
 });
+
+//Get Individual Post
+// router.get('/:id', function(req, res, next){
+//     console.log(req.params.id);
+//     Post.findById(req.params.id, function(error, post){
+//         if(error){
+//             return res.status(500).json({
+//                 title: 'An error occurred',
+//                 error: error
+//             });
+//         }
+//         if(!post){
+//             return res.status(500).json({
+//                 title: 'An error occurred',
+//                 error: {message: 'No post found'}
+//             });
+//         }
+//             res.status(201).json({
+//                 message: 'Found Post',
+//                 obj: post
+//             });
+//     })
+// });
 
 router.use('/', function(req, res, next){
     jwt.verify(req.query.token, 'secret', function(err, decoded){
@@ -62,7 +98,6 @@ router.use('/', function(req, res, next){
 router.post('/', function(req, res, next){
     var decoded = jwt.decode(req.query.token);
     User.findById(decoded.user._id, function(error, user){
-        console.log(user);
        if(error){
            return res.status(500).json({
                title: 'An error occurred',
@@ -95,6 +130,7 @@ router.post('/', function(req, res, next){
 
 //Update Post
 router.patch('/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
     Post.findById(req.params.id, function(error, post){
         console.log(req.params.id);
         if(error){
@@ -107,6 +143,13 @@ router.patch('/:id', function(req, res, next){
             return res.status(500).json({
                 title: 'An error occurred',
                 error: {message: 'No post found'}
+            });
+        }
+
+        if(post.user != decoded.user._id){
+            return res.status(401).json({
+                title: 'Not authenticated',
+                error: {message: 'Users do not match'}
             });
         }
         post.title = req.body.title;
@@ -129,6 +172,7 @@ router.patch('/:id', function(req, res, next){
 
 //Delete Post
 router.delete('/:id', function(req, res, next){
+    var decoded = jwt.decode(req.query.token);
     Post.findById(req.params.id, function(error, post){
         if(error){
             return res.status(500).json({
@@ -140,6 +184,17 @@ router.delete('/:id', function(req, res, next){
             return res.status(500).json({
                 title: 'An error occurred',
                 error: {message: 'No post found'}
+            });
+        }
+        console.log('-------------------');
+        console.log(post.user);
+        console.log('-------------------');
+        console.log(decoded.user._id);
+        console.log('-------------------');
+        if(post.user != decoded.user._id){
+            return res.status(401).json({
+                title: 'Not authenticated',
+                error: {message: 'Users do not match'}
             });
         }
 

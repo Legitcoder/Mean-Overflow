@@ -8,6 +8,7 @@ var jwt = require('jsonwebtoken');
 
 //Save User on signup
 router.post('/', function(req, res, next) {
+    console.log(req.body);
     var user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -21,6 +22,7 @@ router.post('/', function(req, res, next) {
                error: error
            });
        }
+       console.log(result);
        res.status(201).json({
            title: 'User Created',
            obj: result

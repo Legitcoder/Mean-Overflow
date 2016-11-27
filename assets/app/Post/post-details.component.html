@@ -6,6 +6,7 @@
 <div [hidden]="toggleDetails">
 <h1>{{selectedPost?.title}}</h1>
 <p>{{selectedPost?.content}}</p>
+    <p>-<strong>{{selectedPost?.username}}</strong></p>
 <a *ngIf="selectedPost" (click)="onEdit(); toggleDetails=!toggleDetails" class="btn btn-primary btn-sm">Edit</a>
 <a *ngIf="selectedPost" (click)="onDelete()" class="btn btn-danger btn-sm">Delete</a>
 </div>
