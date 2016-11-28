@@ -12,10 +12,10 @@ import {ActivatedRoute} from "@angular/router";
 
 
 export class CommentsComponent implements OnInit{
-    private subscription: Subscription;
-    private comments: Comment[];
-    private postId;
-    private toggleForm: boolean = false;
+     subscription: Subscription;
+     comments: Comment[];
+     postId;
+     toggleForm: boolean = false;
 
 
     constructor(private commentService: CommentService, private route: ActivatedRoute){}

@@ -10,11 +10,11 @@ import {ActivatedRoute, Router} from "@angular/router";
     templateUrl: './post-details.component.html'
 })
 export class PostDetailsComponent implements OnInit, OnDestroy {
-    private subscription: Subscription;
-    private postId: Post;
-    private selectedPost;
-    private toggleForm: boolean = false;
-    private toggleDetails: boolean = false;
+     subscription: Subscription;
+     postId: Post;
+     selectedPost;
+     toggleForm: boolean = false;
+     toggleDetails: boolean = false;
 
     constructor(private postService: PostService, private route: ActivatedRoute, private router: Router){
 

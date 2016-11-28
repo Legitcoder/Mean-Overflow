@@ -8,7 +8,7 @@ import {Post} from "./post.model";
     templateUrl: './posts.component.html'
 })
 export class PostsComponent implements OnInit {
-    private posts: Post[] = [];
+    posts: Post[] = [];
     togglePostForm: boolean = false;
 
     constructor(private postService: PostService){

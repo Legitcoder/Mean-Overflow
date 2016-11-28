@@ -8,10 +8,10 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class CommentService{
-    private comments: Comment[] = [];
+     comments: Comment[] = [];
     commentIsEdit = new EventEmitter<Comment>();
     commentIsMount = new EventEmitter<boolean>();
-    private comment: Comment;
+     comment: Comment;
 
     constructor(private http: Http){}
 
@@ -20,7 +20,7 @@ export class CommentService{
         const headers = new Headers({'Content-Type': 'application/json'});
         const body = JSON.stringify(comment);
         const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-        return this.http.post('http://localhost:3000/comment' + token, body, {headers: headers})
+        return this.http.post('http://mean-overflow.herokuapp.com/comment' + token, body, {headers: headers})
             .map((response: Response) =>{
                 const result = response.json().obj;
                 console.log(result);
@@ -32,7 +32,7 @@ export class CommentService{
 
     getComments(postId){
         this.comments = [];
-        return this.http.get('http://localhost:3000/comment/' + postId)
+        return this.http.get('http://mean-overflow.herokuapp.com/comment/' + postId)
             .map((response: Response) =>{
                 console.log(response.json().obj);
                 response.json().obj.forEach((comment) =>
@@ -54,7 +54,7 @@ export class CommentService{
         const headers = new Headers({'Content-Type' : 'application/json'});
         const body = JSON.stringify(comment);
         const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-        return this.http.patch('http://localhost:3000/comment/' + comment.commentId + token, body, {headers: headers})
+        return this.http.patch('http://mean-overflow.herokuapp.com/comment/' + comment.commentId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -64,7 +64,7 @@ export class CommentService{
     deleteComment(comment){
         this.comments.splice(this.comments.indexOf(comment), 1);
         const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
-        return this.http.delete('http://localhost:3000/comment/' + comment.commentId + token)
+        return this.http.delete('http://mean-overflow.herokuapp.com/comment/' + comment.commentId + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }
