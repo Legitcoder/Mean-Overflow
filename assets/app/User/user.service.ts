@@ -15,7 +15,7 @@ export class UserService{
     signUp(user: User){
         var body = JSON.stringify(user);
         var headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post('http://mean-overflow.herokuapp.com/user', body, {headers: headers})
+        return this.http.post('https://mean-overflow-2.herokuapp.com/user', body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -24,7 +24,7 @@ export class UserService{
     signIn(user: User){
         var body = JSON.stringify(user);
         var headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post('http://mean-overflow.herokuapp.com/user/signin', body, {headers: headers})
+        return this.http.post('https://mean-overflow-2.herokuapp.com/user/signin', body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }
