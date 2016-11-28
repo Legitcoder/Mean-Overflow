@@ -1,6 +1,8 @@
-/.idea
+/assets
 /node_modules
-/how-to-use.txt
-/npm-debug.log
-/bin
-/public
+/typings
+typings.json
+typings.d.ts
+tsconfig.json
+systemjs.builder.js
+gulpfile.js
