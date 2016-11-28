@@ -12,10 +12,10 @@ import {Response} from "@angular/http";
     templateUrl: './comment-form.component.html'
 })
 export class CommentFormComponent implements OnInit{
-    private subscription: Subscription;
-    private comment: Comment;
-    private postId;
-    private toggleForm: boolean = false;
+     subscription: Subscription;
+     comment: Comment;
+     postId;
+     toggleForm: boolean = false;
 
     constructor(private commentService: CommentService, private route: ActivatedRoute){}
 

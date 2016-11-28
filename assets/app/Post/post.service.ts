@@ -8,10 +8,10 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class PostService{
-    private posts: Post[] = [];
+     posts: Post[] = [];
     postIsEdit = new EventEmitter<Post>();
     postIsAppend = new EventEmitter<Boolean>();
-    private post: Post;
+     post: Post;
 
     constructor(private http: Http){}
 

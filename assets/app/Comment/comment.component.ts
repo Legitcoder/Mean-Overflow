@@ -16,7 +16,7 @@ import {CommentService} from "./comment.service";
 
 export class CommentComponent implements OnInit{
     @Input() comment: Comment;
-    private showComment: boolean = true;
+    showComment: boolean = true;
 
     constructor(private commentService: CommentService){
     }

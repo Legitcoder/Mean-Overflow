@@ -8,10 +8,10 @@ import 'rxjs/add/operator/map'
 
 @Injectable()
 export class CommentService{
-    private comments: Comment[] = [];
+     comments: Comment[] = [];
     commentIsEdit = new EventEmitter<Comment>();
     commentIsMount = new EventEmitter<boolean>();
-    private comment: Comment;
+     comment: Comment;
 
     constructor(private http: Http){}
 
