@@ -20,7 +20,6 @@ export class CommentFormComponent implements OnInit{
     constructor(private commentService: CommentService, private route: ActivatedRoute){}
 
     onSubmit(form: NgForm){
-        console.log(this.toggleForm);
         this.getPostId();
         if(this.comment){
             this.commentService.mountComment(true);

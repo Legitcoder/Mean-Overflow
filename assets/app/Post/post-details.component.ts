@@ -56,6 +56,10 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
+    belongsToUser(){
+        return localStorage.getItem('userId') == this.selectedPost.userId;
+    }
+
 
 
 }

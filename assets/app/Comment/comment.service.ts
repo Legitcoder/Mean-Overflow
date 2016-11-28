@@ -19,11 +19,12 @@ export class CommentService{
     addComment(comment){
         const headers = new Headers({'Content-Type': 'application/json'});
         const body = JSON.stringify(comment);
-        return this.http.post('http://localhost:3000/comment', body, {headers: headers})
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this.http.post('http://localhost:3000/comment' + token, body, {headers: headers})
             .map((response: Response) =>{
                 const result = response.json().obj;
                 console.log(result);
-                const comment = new Comment(result.content, result.postId, result._id, 'User Id');
+                const comment = new Comment(result.content, result.postId, result._id, result.user._id, result.user.username);
                 this.comments.push(comment);
             })
             .catch((error: Response) => Observable.throw(error.json()));
@@ -35,7 +36,7 @@ export class CommentService{
             .map((response: Response) =>{
                 console.log(response.json().obj);
                 response.json().obj.forEach((comment) =>
-                    this.comments.push(new Comment(comment.content, comment.post._id, comment._id, 'User Id')));
+                    this.comments.push(new Comment(comment.content, comment.post._id, comment._id, comment.user._id, comment.user.username)));
                 return this.comments;
             })
             .catch((error: Response) => Observable.throw(error.json()));
@@ -52,27 +53,18 @@ export class CommentService{
     updateComment(comment){
         const headers = new Headers({'Content-Type' : 'application/json'});
         const body = JSON.stringify(comment);
-        return this.http.patch('http://localhost:3000/comment/' + comment.commentId, body, {headers: headers})
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this.http.patch('http://localhost:3000/comment/' + comment.commentId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }
 
-    // getComment(commentId){
-    //     return this.http.get('http://localhost:3000/comment/' + commentId)
-    //         .map((response: Response) =>{
-    //             const comment = new Comment(response.json().obj.content, response.json().obj._id, response.json().obj.postId, 'User Id');
-    //             console.log(comment);
-    //             this.comment = comment;
-    //             return this.comment;
-    //         })
-    //         .catch((error: Response) => Observable.throw(error.json().obj));
-    // }
 
 
     deleteComment(comment){
         this.comments.splice(this.comments.indexOf(comment), 1);
-        console.log(comment);
-        return this.http.delete('http://localhost:3000/comment/' + comment.commentId)
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+        return this.http.delete('http://localhost:3000/comment/' + comment.commentId + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => Observable.throw(error.json()));
     }

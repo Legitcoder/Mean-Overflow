@@ -39,5 +39,9 @@ export class CommentComponent implements OnInit{
     }
 
 
+    belongsToUser(){
+        return localStorage.getItem('userId') == this.comment.userId;
+    }
+
 
 }

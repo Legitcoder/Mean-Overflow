@@ -1,14 +1,16 @@
 <div [hidden]="showComment">
     <mean-comment-form></mean-comment-form>
 </div>
+<br>
 
 <ul>
     <li>
-
 <div [hidden]="showComment==false">
     <p>{{comment?.content}}</p>
-    <a *ngIf="comment" (click)="onEdit(); showComment=!showComment" class="btn btn-primary btn-xs">Edit</a>
-    <a *ngIf="comment" (click)="onDelete()" class="btn btn-danger btn-xs">Delete</a>
+    <p>-<strong>{{comment?.username}}</strong></p>
+    <a *ngIf="comment && belongsToUser()" (click)="onEdit(); showComment=!showComment" class="btn btn-primary btn-xs">Edit</a>
+    <a *ngIf="comment && belongsToUser()" (click)="onDelete()" class="btn btn-danger btn-xs">Delete</a>
 </div>
     </li>
+    <br>
 </ul>

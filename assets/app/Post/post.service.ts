@@ -22,7 +22,6 @@ export class PostService{
         return this.http.post('http://localhost:3000/post' + token, body, {headers: headers})
             .map((response: Response) =>{
                 const result = response.json().obj;
-                console.log(result);
                 const post = new Post(result.title, result.content, result._id, result.user._id, result.user.username);
                 this.posts.push(post);
                 return post;
@@ -34,9 +33,7 @@ export class PostService{
     getPost(postId){
         return this.http.get('http://localhost:3000/post/' + postId)
             .map((response: Response) =>{
-                console.log(response.json().obj);
                 const post = new Post(response.json().obj.title, response.json().obj.content, response.json().obj._id, response.json().obj.user._id, response.json().obj.user.username );
-                console.log(post);
                 this.post = post;
                 return this.post;
             })
@@ -48,7 +45,6 @@ export class PostService{
         this.posts = [];
         return this.http.get('http://localhost:3000/post')
             .map((response: Response) =>{
-                console.log(response.json().obj);
                 response.json().obj.forEach((post) =>
                     this.posts.push(new Post(post.title, post.content, post._id, post.user._id, post.user.username)));
                 return this.posts;
@@ -74,7 +70,6 @@ export class PostService{
     }
 
     deletePost(post: Post){
-        console.log(post);
         this.posts.splice(this.posts.indexOf(post), 1);
         const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
         return this.http.delete('http://localhost:3000/post/' + post.postId + token)
