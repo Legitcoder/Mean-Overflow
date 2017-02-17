@@ -8,13 +8,28 @@ import {Router} from "@angular/router";
 @Component({
     selector: 'mean-post-form',
     templateUrl: './post-form.component.html',
-    inputs: ['post']
+    inputs: ['post'],
+    styles: [`
+        .btn-primary, .btn-danger {
+        color: #fdfdfd;
+        background-color: #8b352b;
+        border-color: #000000; 
+}
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+        color: #000000;
+        background-color: #7e8080;
+        border-color: #000000;
+        }
+`]
 })
-export class PostFormComponent implements OnInit, AfterViewChecked{
+export class PostFormComponent implements OnInit{
     toggleForm: boolean = false;
     post: Post;
+    content;
+    title;
 
-    constructor(private postService: PostService, private router: Router){}
+    constructor(private postService: PostService, private router: Router){
+    }
 
 
     onSubmit(form: NgForm){
@@ -39,20 +54,11 @@ export class PostFormComponent implements OnInit, AfterViewChecked{
     }
 
 
-    ngAfterViewChecked(){
-        this.postService.postIsEdit.subscribe(
-            (post: Post) => {
-                this.post = post;
-                console.log(post);
-            }
-        )
-    }
-
     ngOnInit(){
         this.postService.postIsEdit.subscribe(
             (post: Post) => {
-                this.post = post;
                 console.log(post);
+                this.post = post;
             }
         )
     }

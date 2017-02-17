@@ -67,6 +67,9 @@ router.post('/', function(req, res, next){
                 user: user
             });
             post.comments.push(comment);
+            user.comments.push(comment);
+            console.log(user.name);
+            user.save();
             post.save();
             comment.save(function(error, result){
                 if(error){

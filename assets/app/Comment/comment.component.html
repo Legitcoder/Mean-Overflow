@@ -5,7 +5,7 @@
 
 <ul>
     <li>
-<div [hidden]="showComment==false">
+<div [hidden]="!showComment">
     <p>{{comment?.content}}</p>
     <p>-<strong>{{comment?.username}}</strong></p>
     <a *ngIf="comment && belongsToUser()" (click)="onEdit(); showComment=!showComment" class="btn btn-primary btn-xs">Edit</a>

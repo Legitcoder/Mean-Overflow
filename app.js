@@ -12,7 +12,7 @@ var userRoutes = require('./routes/user');
 var appRoutes = require('./routes/app');
 
 var app = express();
-mongoose.connect('admin:admin@ds111718.mlab.com:11718/mean-app');
+mongoose.connect('localhost:27017/mean-app');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

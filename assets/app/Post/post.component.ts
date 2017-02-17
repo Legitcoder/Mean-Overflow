@@ -9,7 +9,12 @@ import {PostService} from "./post.service";
     styles: [
         `ul{
             list-style: none;
-        }`
+        }
+
+        h3{
+        color: black;
+        }
+        `
     ]
 })
 

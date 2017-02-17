@@ -7,7 +7,18 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'mean-signup-form',
-    templateUrl: './signup-form.component.html'
+    templateUrl: './signup-form.component.html',
+    styles:[`
+        btn-primary, .btn-danger, .btn-block {
+        color: #fdfdfd;
+        background-color: #8b352b;
+        border-color: #000000; 
+}
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+        color: #000000;
+        background-color: #7e8080;
+        border-color: #000000;
+        }`]
 })
 
 export class SignupFormComponent implements OnInit{

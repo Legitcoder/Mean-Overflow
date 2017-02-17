@@ -5,11 +5,27 @@ import {Post} from "./post.model";
 
 @Component({
     selector: 'mean-posts',
-    templateUrl: './posts.component.html'
+    templateUrl: './posts.component.html',
+    styles: [`
+        h3{
+        color: black;
+        }
+        .btn-primary {
+        color: #fdfdfd;
+        background-color: #8b352b;
+        border-color: #000000; 
+}
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+        color: #000000;
+        background-color: #7e8080;
+        border-color: #000000;
+        }
+`]
 })
 export class PostsComponent implements OnInit {
     posts: Post[] = [];
     togglePostForm: boolean = false;
+
 
     constructor(private postService: PostService){
 
